@@ -11,6 +11,12 @@ const Dashboard = () => {
     console.log('opened');
     setLoading(false);
     socket.send('decode');
+    socket.send(
+      JSON.stringify({
+        x: 254,
+        y: 100,
+      })
+    );
   });
 
   // socket.onopen = () => {

@@ -5,7 +5,11 @@ const wss = new Sockket.Server({ port: 8080 });
 
 wss.on('connection', (ws) => {
   ws.on('message', (message) => {
-    console.log(message.toString());
+    try {
+      console.log(JSON.parse(message));
+    } catch (e) {
+      console.log(`sonemthing went wrong with the message:${e.message}`);
+    }
   });
 });
 
