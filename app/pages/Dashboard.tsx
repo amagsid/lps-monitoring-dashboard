@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { cardio } from 'ldrs';
 import { ping } from 'ldrs';
 import { tailChase } from 'ldrs';
+import NavBar from '../components/NavBar';
+import WebSocketData from '../data/WebSocketData';
 
 ping.register();
 tailChase.register();
@@ -42,9 +44,13 @@ const Dashboard = () => {
     console.log(`message received`, message.data);
   };
   return (
-    <div className=' text-sky-900 '>
-      <div>
+    <div className=' flex flex-row h-screen w-screen '>
+      <aside className=' w-96'>
         {' '}
+        <NavBar />
+      </aside>
+      <div>
+        <WebSocketData />{' '}
         {loading ? (
           <l-tail-chase size='40' speed='1.75' color='black'></l-tail-chase>
         ) : (

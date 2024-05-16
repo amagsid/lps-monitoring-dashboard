@@ -55,14 +55,20 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 ::-webkit-scrollbar-thumb {
   background-color: rgb(216, 216, 216);
   border-radius: 40px;
+  background: #888;
 }
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  /* background-color: transparent; */
+  background: #e0e0e0;
+}
+::-webkit-scrollbar-track:hover {
+  /* background-color: transparent; */
+  background: #555;
 }
 
 /* color-picker style  */
