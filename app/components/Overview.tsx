@@ -2,7 +2,6 @@ import React from 'react';
 import StatCard from './StatCard';
 
 interface Props {
-  //   allServers: {};
   server1: {} | any;
   server2: {};
   server3: {};
@@ -26,12 +25,12 @@ Props) => {
 
   allServers.push(server1, server2, server3, server4, server5);
 
-  console.log(allServers, 'allServers');
+  //   console.log(allServers, 'allServers');
 
   return (
     <div className='flex flex-col gap-4 items-center justify-center w-full'>
-      {allServers.map(({ machine, cpu }) => {
-        return <StatCard machine={machine} cpu={cpu} />;
+      {allServers.map(({ machine, cpu, memory }) => {
+        return <StatCard machine={machine} cpu={cpu} memory={memory} />;
       })}
     </div>
   );

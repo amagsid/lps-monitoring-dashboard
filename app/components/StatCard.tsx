@@ -3,9 +3,10 @@ import React from 'react';
 interface Props {
   machine: any;
   cpu: any;
+  memory: any;
 }
 
-const StatCard = ({ machine, cpu }: Props) => {
+const StatCard = ({ machine, cpu, memory }: Props) => {
   return (
     <div className=''>
       {/* <h6
@@ -41,7 +42,7 @@ const StatCard = ({ machine, cpu }: Props) => {
             <div className='stat-desc'>Jan 1st - Feb 1st</div>
           </div>
 
-          <div className='stat'>
+          <div className='stat w-56'>
             <div className='stat-figure text-secondary'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -57,12 +58,18 @@ const StatCard = ({ machine, cpu }: Props) => {
                 ></path>
               </svg>
             </div>
-            <div className='stat-title'>Memory</div>
-            <div className='stat-value'>4,200</div>
-            <div className='stat-desc'>↗︎ 400 (22%)</div>
+            <div className='stat-title '>Used Memory</div>
+            {memory && (
+              <>
+                <div className='stat-value text-[1.75rem]'>
+                  {memory.used}/ <span className='text-lg'>{memory.total}</span>
+                </div>
+                <div className='stat-desc'>↗︎ {memory.usedPercentage}%)</div>
+              </>
+            )}
           </div>
 
-          <div className='stat'>
+          <div className='stat w-56'>
             <div className='stat-figure text-secondary'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -78,9 +85,14 @@ const StatCard = ({ machine, cpu }: Props) => {
                 ></path>
               </svg>
             </div>
-            <div className='stat-title'>New Registers</div>
-            <div className='stat-value'>1,200</div>
-            <div className='stat-desc'>↘︎ 90 (14%)</div>
+            <div className='stat-title'>Free Memory</div>
+            {memory && (
+              <>
+                {' '}
+                <div className='stat-value'>{memory.free}</div>{' '}
+                <div className='stat-desc'>↘︎ ({memory.freePercentage}%)</div>{' '}
+              </>
+            )}
           </div>
         </div>
       </div>
