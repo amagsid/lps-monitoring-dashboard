@@ -22,6 +22,31 @@ bun dev
 - created a single page app with an initial laykout for a dashboard, status bar for the connection status, and a sidebar
 - Looked up some initial inspirations for presenting the data, including Material Ui and daisy UI
 - researched Websockets and best practices on using a websocket API with React/Next.js
+  -making the websocket connection:
+- I started with making one connection to the websocket API that got me a stream of data for all servers, but when I modularized the websocket call into a hook, I experimented with making a different call for each server, since it would save me the seperartion of data if I went with the first approach, here are the pros and cons I found for each option:
+  Option 1, Single WebSocket Connection with Data Separation:
+
+  Advantages:
+
+  1. Efficiency: A single connection reduces the overhead and complexity associated with managing multiple 2. WebSocket connections.
+  2. Simplicity: Easier to manage connection lifecycle and error handling for a single connection.
+     Resource Usage: Reduced resource usage on both the client and server.
+
+     Disadvantages:
+
+1. Increased Complexity in data handling and sepertion: I found it woiuod take more time to seperate data especially that its a big stream of continious real time data in
+
+Option 2, Option 2: Multiple WebSocket Connections:
+
+Advantages:
+
+1. Separation of Concerns: Each WebSocket connection handles a distinct type of data, making it easier to 2. manage and debug.
+2. Independent Error Handling: Each connection can have its own error handling and retry logic.
+
+Disadvantages:
+
+1. Increased Complexity: Managing multiple connections can increase the complexity of code.
+2. Resource Usage: More WebSocket connections can increase resource usage on both the client and server.
 
 ### `chellenges`
 

@@ -21,7 +21,7 @@ export const metricMessages = [
   },
   {
     type: 'all',
-    machine: 'server04',
+    machine: 'server05',
     subscribe: true,
   },
 ];

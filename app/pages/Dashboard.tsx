@@ -4,75 +4,47 @@ import { cardio } from 'ldrs';
 import { ping } from 'ldrs';
 import { tailChase } from 'ldrs';
 import NavBar from '../components/NavBar';
-import useWebSocket from '../data/useWebSocket';
-import { metricMessages } from '../data/metricMessages';
+import useWebSocket from '../data/websocketConnection/useWebSocket';
+import { metricMessages } from '../data/websocketConnection/metricMessages';
+import Overview from '../components/Overview';
 
 ping.register();
 tailChase.register();
 
 const Dashboard = () => {
-  // const [loading, setLoading] = useState(true);
-  // const [serverData, setServerData] = useState(Array<{}>);
-  // const [isPaused, setPause] = useState(false);
-  const [ws, setWs] = useState(null);
-
   const { serverData, isPaused, loading, setPause } = useWebSocket(
     'wss://lps-monitoring.up.railway.app/realtime',
     metricMessages
   );
+  const { serverData: server1 } = useWebSocket(
+    'wss://lps-monitoring.up.railway.app/realtime',
+    metricMessages[0]
+  );
+  const { serverData: server2 } = useWebSocket(
+    'wss://lps-monitoring.up.railway.app/realtime',
+    metricMessages[1]
+  );
+  const { serverData: server3 } = useWebSocket(
+    'wss://lps-monitoring.up.railway.app/realtime',
+    metricMessages[2]
+  );
+  const { serverData: server4 } = useWebSocket(
+    'wss://lps-monitoring.up.railway.app/realtime',
+    metricMessages[3]
+  );
+  const { serverData: server5 } = useWebSocket(
+    'wss://lps-monitoring.up.railway.app/realtime',
+    metricMessages[4]
+  );
 
-  console.log(serverData);
-
-  // console.log(serverData, 'serverrrrrrData');
-
-  // useEffect(() => {
-  //   const socket = new WebSocket(
-  //     'wss://lps-monitoring.up.railway.app/realtime'
-  //   );
-
-  //   if (!isPaused) {
-  //     socket.onopen = () => {
-  //       console.log('ws opened on browser');
-  //       socket.send(
-  //         JSON.stringify({
-  //           type: 'all',
-  //           machine: 'server01',
-  //           subscribe: true,
-  //         })
-  //       );
-  //       socket.send(
-  //         JSON.stringify({
-  //           type: 'all',
-  //           machine: 'server02',
-  //           subscribe: true,
-  //         })
-  //       );
-
-  //       setLoading(false);
-  //     };
-  //   }
-
-  //   socket.onmessage = (event) => {
-  //     const receivedData = JSON.parse(event.data);
-  //     if (!('success' in receivedData)) {
-  //       // console.log(receivedData, 'receivedData');
-  //       setServerData((prevMessages) => [...prevMessages, receivedData]);
-  //       console.log(serverData, 'serverData');
-  //     }
-  //   };
-  //   // Clean up the WebSocket connection when the component unmounts
-  //   // return () => {
-  //   //   socket.close();
-  //   //   console.log('WebSocket connection is closed.');
-  //   // };
-  // }, [serverData, isPaused]);
+  // console.log(serverData);
 
   return (
     <div className=' flex flex-col h-screen w-screen '>
       <div className=' flex flex-row items-center justify-center'>
-        <button onClick={() => setPause(!isPaused)}>
+        {/* <button onClick={() => setPause(!isPaused)}>
           {isPaused ? 'Resume' : 'Pause'}
-        </button>
+        </button> */}
         connection status:
         {loading && (
           <l-tail-chase size='40' speed='1.75' color='black'></l-tail-chase>
@@ -96,7 +68,14 @@ const Dashboard = () => {
           {' '}
           <NavBar />
         </aside>
-        <div>{/* <WebSocketData />{' '} */}</div>
+        <Overview
+          // allServers={serverData}
+          server1={server1}
+          server2={server2}
+          server3={server3}
+          server4={server4}
+          server5={server5}
+        />
       </div>
     </div>
   );

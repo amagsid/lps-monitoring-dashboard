@@ -1,47 +1,50 @@
-import { useEffect, useRef, useState } from 'react';
-import { throttle } from 'lodash';
+import { useEffect, useState } from 'react';
 
-const useWebSocket = (url: any, messages: any) => {
+const useWebSocket = (url: string, metricMessage: any) => {
+  // const [connection, setConnection] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [serverData, setServerData] = useState(Array<{}>);
   const [isPaused, setPause] = useState(false);
-  const dataQueueRef = useRef([]);
 
   useEffect(() => {
     const socket = new WebSocket(url);
 
     if (!isPaused) {
       socket.onopen = () => {
+        setLoading(false);
         // console.log('ws opened on browser');
-        // Send initial messages or headers
-        if (Array.isArray(messages)) {
-          messages.forEach((message: any) => {
+        if (Array.isArray(metricMessage)) {
+          metricMessage.forEach((message: any) => {
             socket.send(JSON.stringify(message));
           });
+        } else {
+          socket.send(JSON.stringify(metricMessage));
         }
-
-        setLoading(false);
       };
     }
 
     socket.onmessage = (event) => {
       const receivedData = JSON.parse(event.data);
-
       if (!('success' in receivedData)) {
-        setInterval(() => {
+        if (Array.isArray(metricMessage)) {
           setServerData((prevMessages) => [...prevMessages, receivedData]);
-          dataQueueRef.current = [];
-        }, 1000);
+        } else {
+          setServerData(receivedData);
+        }
+        // console.log(receivedData, 'receivedData');
 
         // console.log(serverData, 'serverData');
       }
     };
     // Clean up the WebSocket connection when the component unmounts
-    // return () => {
-    //   socket.close();
-    //   console.log('WebSocket connection is closed.');
-    // };
-  }, [serverData]);
+    return () => {
+      if (socket.readyState === 1) {
+        socket.close();
+        console.log('WebSocket connection is closed.');
+      }
+    };
+  }, []);
 
   return { serverData, isPaused, loading, setPause };
 };
