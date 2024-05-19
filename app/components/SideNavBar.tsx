@@ -16,9 +16,12 @@ const SideNavBar = () => {
       <Link href='/server03'>
         <div>server3</div>
       </Link>
-      <div>server4</div>
-      <div>server5</div>
-      <div></div>
+      <Link href='/server04'>
+        <div>server4</div>
+      </Link>
+      <Link href='/server05'>
+        <div>server5</div>
+      </Link>
     </div>
   );
 };

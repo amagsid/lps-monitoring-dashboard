@@ -16,7 +16,7 @@ const page = () => {
         <CssBaseline />
         <DashboardLayout>
           {' '}
-          <DetailedStats serverNumber={'3'} />
+          <DetailedStats serverNumber={'5'} />
         </DashboardLayout>
       </ThemeProvider>
     </ColorModeContext.Provider>

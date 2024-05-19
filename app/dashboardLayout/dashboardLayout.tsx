@@ -33,7 +33,19 @@ const DashboardLayout = ({ children }: Props) => {
           <TopBar loading={loading} isPaused={isPaused} />
         </div>
 
-        <div className=' flex flex-col h-screen '>{children}</div>
+        <div className='h-screen'>
+          {!loading ? (
+            children
+          ) : (
+            <div className='w-full h-full flex items-center justify-center'>
+              <l-tail-chase
+                size='180'
+                speed='1.75'
+                color='white'
+              ></l-tail-chase>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

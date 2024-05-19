@@ -39,14 +39,13 @@ const TopBar = ({ loading, isPaused }: Props) => {
       {/* {isPaused && <h1> paused</h1>} */}
 
       <div className='flex flex-row items-center justify-center'>
-        <h4>connection status:</h4>
+        <h4>status:</h4>
         <span>
           {loading && (
             <l-tail-chase size='40' speed='1.75' color='black'></l-tail-chase>
           )}
           {!isPaused && !loading && (
             <div className='flex items-center align-center'>
-              <h6>ongoing</h6>
               <l-ping size='45' speed='2' color='green'></l-ping>
             </div>
           )}

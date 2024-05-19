@@ -32,9 +32,6 @@ const useWebSocket = (url: string, metricMessage: any) => {
         } else {
           setServerData(receivedData);
         }
-        // console.log(receivedData, 'receivedData');
-
-        // console.log(serverData, 'serverData');
       }
     };
     // Clean up the WebSocket connection when the component unmounts
