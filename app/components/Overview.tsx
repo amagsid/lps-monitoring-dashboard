@@ -16,13 +16,8 @@ const Overview = ({
   server3,
   server4,
   server5,
-}: //   : { cpu: server1CPU, memory: server1memory }
-Props) => {
-  //   console.log(server1CPU);
-  //   console.log(allServers);
-
+}: Props) => {
   let allServers = [];
-
   allServers.push(server1, server2, server3, server4, server5);
 
   //   console.log(allServers, 'allServers');

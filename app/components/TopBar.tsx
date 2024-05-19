@@ -54,7 +54,7 @@ const TopBar = ({ loading, isPaused }: Props) => {
       </div>
 
       <div className='flex'>
-        <IconButton onClick={colorMode.toggleColorMode}>
+        <IconButton className='stroke-1' onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === 'dark' ? (
             <LightModeOutlinedIcon />
           ) : (
