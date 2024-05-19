@@ -4,7 +4,7 @@ const useWebSocket = (url: string, metricMessage: any) => {
   // const [connection, setConnection] = useState(null);
 
   const [loading, setLoading] = useState(true);
-  const [serverData, setServerData] = useState(Array<{}>);
+  const [serverData, setServerData] = useState([Array<{}>]);
   const [isPaused, setPause] = useState(false);
 
   useEffect(() => {

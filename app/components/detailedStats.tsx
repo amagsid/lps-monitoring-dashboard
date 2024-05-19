@@ -1,10 +1,13 @@
 import React from 'react';
+import StreamChart from './charts/StreamChart';
+import LineChart from './charts/LineChart';
 
 interface Props {
   serverNumber: any;
+  serverData: {};
 }
 
-const DetailedStats = ({ serverNumber }: Props) => {
+const DetailedStats = ({ serverNumber, serverData }: Props) => {
   return (
     <>
       {/* these are stats for server {serverNumber} */}
@@ -17,11 +20,11 @@ const DetailedStats = ({ serverNumber }: Props) => {
           <div className='col-span-2 bg-yellow-500 rounded-lg h-64'></div>
           {/* <!-- Centered main component --> */}
           <div className='col-span-8 bg-red-500 h-64 flex items-center justify-center rounded-lg'>
-            <div className='w-3/4 h-3/4 flex items-center justify-center'>
-              <p className='text-black'>
-                Centered Content for server {serverNumber}
-              </p>
-            </div>
+            {/* <div className='w-3/4 h-3/4 flex items-center justify-center'> */}
+            <StreamChart serverData={serverData} />
+
+            {/* <LineChart serverData={serverData} /> */}
+            {/* </div> */}
           </div>
           {/* right center component */}
           <div className='col-span-2 bg-yellow-500 rounded-lg h-64'></div>
