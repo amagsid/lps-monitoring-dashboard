@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
 interface Props {
   serverData: any;
 }
 
-const incomingdata = {
+const incomingDataFromAPI = {
   cpu: [
     { id: 1, usage: 12.5 },
     { id: 2, usage: 12.5 },
     { id: 3, usage: 12.5 },
   ],
-  machine: 'name',
+  machine: 'machinName',
   memory: {
     total: 10,
     free: 12,
@@ -22,6 +22,46 @@ const incomingdata = {
 
 const LineChart = ({ serverData }: Props) => {
   console.log(serverData, 'serverData');
+
+  const dataIWant = [
+    {
+      id: 'cpu',
+      color: 'hsl(177, 70%, 50%)',
+      data: [
+        {
+          x: 'iteration number representing time',
+          y: 'cpu usuage',
+        },
+        {
+          x: 'iteration number representing time',
+          y: 'cpu usuage',
+        },
+        {
+          x: 'iteration number representing time',
+          y: 'cpu usuage',
+        },
+      ],
+    },
+    {
+      id: 'memory',
+      color: 'hsl(177, 70%, 50%)',
+      data: [
+        {
+          x: 'iteration number representing time',
+          y: 'memory usuage',
+        },
+        {
+          x: 'iteration number representing time',
+          y: 'memory usuage',
+        },
+        {
+          x: 'iteration number representing time',
+          y: 'memory usuage',
+        },
+      ],
+    },
+  ];
+
   const data = [
     {
       id: 'france',
@@ -133,13 +173,69 @@ const LineChart = ({ serverData }: Props) => {
       ],
     },
   ];
+
+  // Option A
+  // interface cleanedUpData {
+  //   id: string;
+  //   color: string;
+  //   data: { x: any; y: any };
+  // }
+
+  // interface cleanedUpData extends Array<cleanedUpData> {}
+
+  let cleanedUpData = [
+    {
+      id: 'cpu',
+      color: 'hsl(177, 70%, 50%)',
+      data: [{ x: 1, y: 20 }],
+    },
+    // {
+    //   id: 'memory',
+    //   color: 'hsl(177, 70%, 50%)',
+    //   data: Array<any>,
+    // },
+  ];
+
+  // Function to process incoming data and append it to dataIWant
+  const processIncomingData = (incomingDataFromAPI: any, iteration: number) => {
+    // Process CPU usage data
+    if (incomingDataFromAPI) {
+      incomingDataFromAPI?.cpu?.forEach((cpu: any) => {
+        // let iteration = 0;
+        iteration++;
+        cleanedUpData[0].data.push({
+          x: iteration,
+          y: cpu.usage,
+        });
+      });
+    }
+
+    // Process Memory usage data
+    // const totalMemory = incomingDataFromAPI.memory.total;
+    //   const usedMemory = incomingDataFromAPI?.memory?.used;
+    //   dataIWant[1].data.push({
+    //     x: iteration,
+    //     y: usedMemory,
+    //   });
+    // };
+
+    // console.log(first);
+  };
+
+  processIncomingData(serverData, 1);
+  console.log(cleanedUpData, 'cleanedUpData');
+
+  // useEffect(() => {
+  //   console.log('hey');
+
+  // }, [serverData]);
+
   return (
     <>
       <ResponsiveLine
         data={data}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        margin={{ top: 10, right: 35, bottom: 20, left: 40 }}
         xScale={{ type: 'point' }}
-        xFormat=' >-'
         yScale={{
           type: 'linear',
           min: 'auto',
@@ -149,17 +245,27 @@ const LineChart = ({ serverData }: Props) => {
         }}
         yFormat=' >-.2f'
         axisTop={null}
-        axisRight={null}
+        axisRight={{
+          orient: 'right',
+          tickSize: 4,
+          tickPadding: 3,
+          tickRotation: -1,
+          legend: '',
+          legendOffset: -26,
+          truncateTickAt: 0,
+        }}
         axisBottom={null}
         axisLeft={{
-          tickSize: 8,
-          tickPadding: 9,
-          tickRotation: -32,
-          legend: 'count',
+          tickSize: 4,
+          tickPadding: 7,
+          tickRotation: 0,
+          legend: '',
           legendOffset: -50,
           legendPosition: 'middle',
-          truncateTickAt: 13,
+          truncateTickAt: 0,
         }}
+        enableGridX={false}
+        colors={{ scheme: 'nivo' }}
         pointSize={10}
         pointColor={{ theme: 'background' }}
         pointBorderWidth={2}
@@ -170,17 +276,17 @@ const LineChart = ({ serverData }: Props) => {
         useMesh={true}
         legends={[
           {
-            anchor: 'bottom-right',
-            direction: 'column',
+            anchor: 'bottom',
+            direction: 'row',
             justify: false,
-            translateX: 100,
-            translateY: 0,
+            translateX: 0,
+            translateY: 16,
             itemsSpacing: 0,
             itemDirection: 'left-to-right',
-            itemWidth: 80,
+            itemWidth: 70,
             itemHeight: 20,
             itemOpacity: 0.75,
-            symbolSize: 12,
+            symbolSize: 11,
             symbolShape: 'circle',
             symbolBorderColor: 'rgba(0, 0, 0, .5)',
             effects: [

@@ -44,10 +44,7 @@ interface Props {
 
 const StreamChart = ({ serverData }: Props) => {
   const cpuData = serverData?.cpu;
-
-  // let accumulatedCpuData = [];
   const [accumulatedCpuData, setAccumulatedCpuData] = useState([Array<{}>]);
-
   const mappedCpuData = cpuData?.map((item) => {
     return { cpu: item.usage };
   });
@@ -56,8 +53,6 @@ const StreamChart = ({ serverData }: Props) => {
     if (mappedCpuData) {
       setAccumulatedCpuData((prev) => [...prev, ...mappedCpuData]);
     }
-    console.log(accumulatedCpuData.length);
-
     // console.log(accumulatedCpuData.slice(1), 'accumulatedCpuData');
     // console.log(mappedCpuData, 'mapped');
   }, [cpuData]);
@@ -65,6 +60,17 @@ const StreamChart = ({ serverData }: Props) => {
   if (accumulatedCpuData.length > 90) {
     accumulatedCpuData.splice(0, 10);
   }
+  const theme = {
+    tooltip: {
+      container: {
+        color: '#ffffff', // Set the tooltip text color here
+        background: '#333333', // Optionally, you can also set the background color
+        fontSize: '14px', // Optionally, set the font size
+        borderRadius: '4px', // Optionally, set the border radius
+        boxShadow: '0 3px 9px rgba(0, 0, 0, 0.5)', // Optionally, set the box shadow
+      },
+    },
+  };
 
   return (
     <>
@@ -72,16 +78,17 @@ const StreamChart = ({ serverData }: Props) => {
         <ResponsiveStream
           data={accumulatedCpuData.slice(1)}
           keys={['cpu']}
-          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          margin={{ top: 5, right: 0, bottom: 4, left: 25 }}
           axisTop={null}
           axisRight={null}
           axisBottom={null}
+          theme={theme} // Apply the custom theme here
           axisLeft={{
             orient: 'left',
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: '',
+            legend: 'Usage',
             legendOffset: -40,
             truncateTickAt: 0,
           }}
@@ -138,7 +145,7 @@ const StreamChart = ({ serverData }: Props) => {
               translateX: 100,
               itemWidth: 80,
               itemHeight: 20,
-              itemTextColor: '#999999',
+              // itemTextColor: '#999999',
               symbolSize: 12,
               symbolShape: 'circle',
               effects: [
