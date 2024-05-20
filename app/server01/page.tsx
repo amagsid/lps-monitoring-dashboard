@@ -23,8 +23,7 @@ const page = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <DashboardLayout>
-          {' '}
-          <DetailedStats serverData={serverData} serverNumber={'1'} />
+          <DetailedStats serverData={serverData} />
         </DashboardLayout>
       </ThemeProvider>
     </ColorModeContext.Provider>

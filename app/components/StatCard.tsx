@@ -1,4 +1,9 @@
 import React from 'react';
+import MemoryOutlinedIcon from '@mui/icons-material/MemoryOutlined';
+import { useTheme } from '@mui/material';
+import { tokens } from '../../theme';
+import { IoHardwareChipSharp } from 'react-icons/io5';
+import { VscPulse } from 'react-icons/vsc';
 
 interface Props {
   machine: any;
@@ -7,31 +12,15 @@ interface Props {
 }
 
 const StatCard = ({ machine, cpu, memory }: Props) => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   return (
     <div className=''>
-      {/* <h6
-        // style={{ writingMode: 'vertical-lr', textOrientation: 'upright' }}
-        className='text-center font-bold text-secondary'
-      >
-        {machine}
-      </h6> */}
       <div className='flex flex-row'>
         <div className='stats shadow'>
           <div className='stat w-52'>
             <div className='stat-figure text-secondary'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                className='inline-block w-8 h-8 stroke-current'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
-                ></path>
-              </svg>
+              <VscPulse size={25} color={colors.colorPop} />
             </div>
             <div className='stat-title'>CPU</div>
 
@@ -44,19 +33,7 @@ const StatCard = ({ machine, cpu, memory }: Props) => {
 
           <div className='stat w-56'>
             <div className='stat-figure text-secondary'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                className='inline-block w-8 h-8 stroke-current'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  d='M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4'
-                ></path>
-              </svg>
+              <IoHardwareChipSharp size={25} color={colors.colorPop} />
             </div>
             <div className='stat-title '>Used Memory</div>
             {memory && (
@@ -64,7 +41,7 @@ const StatCard = ({ machine, cpu, memory }: Props) => {
                 <div className='stat-value text-[1.75rem]'>
                   {memory.used}/ <span className='text-lg'>{memory.total}</span>
                 </div>
-                <div className='stat-desc'>↗︎ {memory.usedPercentage}%)</div>
+                <div className='stat-desc'>↗︎ ({memory.usedPercentage}%)</div>
               </>
             )}
           </div>
@@ -73,16 +50,12 @@ const StatCard = ({ machine, cpu, memory }: Props) => {
             <div className='stat-figure text-secondary'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                className='inline-block w-8 h-8 stroke-current'
+                height='40px'
+                viewBox='0 -960 960 960'
+                width='40px'
+                fill={colors.colorPop}
               >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  d='M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4'
-                ></path>
+                <path d='M400-400v-160h160v160H400Zm40-40h80v-80h-80v80Zm-60 261.54V-240h-75.38q-27.62 0-46.12-18.5Q240-277 240-304.62V-380h-61.54v-40H240v-120h-61.54v-40H240v-75.38q0-27.62 18.5-46.12Q277-720 304.62-720H380v-61.54h40V-720h120v-61.54h40V-720h75.38q27.62 0 46.12 18.5Q720-683 720-655.38V-580h61.54v40H720v120h61.54v40H720v75.38q0 27.62-18.5 46.12Q683-240 655.38-240H580v61.54h-40V-240H420v61.54h-40ZM655.38-280q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-350.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H304.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v350.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h350.76ZM480-480Z' />
               </svg>
             </div>
             <div className='stat-title'>Free Memory</div>

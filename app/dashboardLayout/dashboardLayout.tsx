@@ -7,6 +7,8 @@ import useWebSocket from '../data/websocketConnection/useWebSocket';
 import { metricMessages } from '../data/websocketConnection/metricMessages';
 import Overview from '../components/Overview';
 import TopBar from '../components/TopBar';
+import { useTheme } from '@mui/material';
+import { tokens } from '../../theme';
 
 ping.register();
 tailChase.register();
@@ -16,6 +18,8 @@ interface Props {
 }
 
 const DashboardLayout = ({ children }: Props) => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const { serverData, isPaused, loading, setPause } = useWebSocket(
     'wss://lps-monitoring.up.railway.app/realtime',
     metricMessages
@@ -41,7 +45,7 @@ const DashboardLayout = ({ children }: Props) => {
               <l-tail-chase
                 size='180'
                 speed='1.75'
-                color='white'
+                color={colors.colorPop}
               ></l-tail-chase>
             </div>
           )}

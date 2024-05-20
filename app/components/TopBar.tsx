@@ -42,11 +42,15 @@ const TopBar = ({ loading, isPaused }: Props) => {
         <h4>status:</h4>
         <span>
           {loading && (
-            <l-tail-chase size='40' speed='1.75' color='black'></l-tail-chase>
+            <l-tail-chase
+              size='20'
+              speed='1.75'
+              color={colors.colorPop}
+            ></l-tail-chase>
           )}
           {!isPaused && !loading && (
             <div className='flex items-center align-center'>
-              <l-ping size='45' speed='2' color='green'></l-ping>
+              <l-ping size='45' speed='2' color={colors.colorPop}></l-ping>
             </div>
           )}
         </span>

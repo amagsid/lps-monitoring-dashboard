@@ -59,6 +59,7 @@ export const tokens = (mode: any) => ({
           800: '#2a2d64',
           900: '#151632',
         },
+        colorPop: '#2adcff',
       }
     : {
         grey: {
@@ -105,7 +106,7 @@ export const tokens = (mode: any) => ({
           800: '#f1b9b7',
           900: '#f8dcdb',
         },
-        blue: {
+        blueAccent: {
           100: '#151632',
           200: '#2a2d64',
           300: '#3e4396',
@@ -116,6 +117,7 @@ export const tokens = (mode: any) => ({
           800: '#c3c6fd',
           900: '#e1e2fe',
         },
+        colorPop: '#a855f7',
       }),
 });
 

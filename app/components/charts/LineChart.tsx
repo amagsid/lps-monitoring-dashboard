@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
 interface Props {
@@ -21,7 +21,9 @@ const incomingDataFromAPI = {
 };
 
 const LineChart = ({ serverData }: Props) => {
-  console.log(serverData, 'serverData');
+  const [memoryDataStream, setMemoryDataStream] = useState([Array]);
+
+  let memoryDataStreamm = [];
 
   const dataIWant = [
     {
@@ -62,127 +64,6 @@ const LineChart = ({ serverData }: Props) => {
     },
   ];
 
-  const data = [
-    {
-      id: 'france',
-      color: 'hsl(177, 70%, 50%)',
-      data: [
-        {
-          x: 'plane',
-          y: 24,
-        },
-        {
-          x: 'helicopter',
-          y: 47,
-        },
-        {
-          x: 'boat',
-          y: 30,
-        },
-        {
-          x: 'train',
-          y: 267,
-        },
-        {
-          x: 'subway',
-          y: 128,
-        },
-        {
-          x: 'bus',
-          y: 274,
-        },
-        {
-          x: 'car',
-          y: 192,
-        },
-        {
-          x: 'moto',
-          y: 212,
-        },
-        {
-          x: 'bicycle',
-          y: 89,
-        },
-        {
-          x: 'horse',
-          y: 115,
-        },
-        {
-          x: 'skateboard',
-          y: 235,
-        },
-        {
-          x: 'others',
-          y: 17,
-        },
-      ],
-    },
-
-    {
-      id: 'germany',
-      color: 'hsl(167, 70%, 50%)',
-      data: [
-        {
-          x: 'plane',
-          y: 187,
-        },
-        {
-          x: 'helicopter',
-          y: 287,
-        },
-        {
-          x: 'boat',
-          y: 192,
-        },
-        {
-          x: 'train',
-          y: 72,
-        },
-        {
-          x: 'subway',
-          y: 77,
-        },
-        {
-          x: 'bus',
-          y: 60,
-        },
-        {
-          x: 'car',
-          y: 135,
-        },
-        {
-          x: 'moto',
-          y: 40,
-        },
-        {
-          x: 'bicycle',
-          y: 178,
-        },
-        {
-          x: 'horse',
-          y: 44,
-        },
-        {
-          x: 'skateboard',
-          y: 176,
-        },
-        {
-          x: 'others',
-          y: 229,
-        },
-      ],
-    },
-  ];
-
-  // Option A
-  // interface cleanedUpData {
-  //   id: string;
-  //   color: string;
-  //   data: { x: any; y: any };
-  // }
-
-  // interface cleanedUpData extends Array<cleanedUpData> {}
-
   let cleanedUpData = [
     {
       id: 'cpu',
@@ -196,44 +77,60 @@ const LineChart = ({ serverData }: Props) => {
     // },
   ];
 
+  useEffect(() => {
+    if (serverData) {
+      setMemoryDataStream((prev: any) => [...prev, serverData?.memory?.used]);
+    }
+  }, [serverData]);
+
+  console.log(memoryDataStream, 'memoryDataStream');
+
   // Function to process incoming data and append it to dataIWant
   const processIncomingData = (incomingDataFromAPI: any, iteration: number) => {
     // Process CPU usage data
     if (incomingDataFromAPI) {
       incomingDataFromAPI?.cpu?.forEach((cpu: any) => {
-        // let iteration = 0;
         iteration++;
         cleanedUpData[0].data.push({
           x: iteration,
           y: cpu.usage,
         });
       });
+      incomingDataFromAPI?.forEach((memory: any) => {
+        iteration++;
+        cleanedUpData[1]?.data.push({
+          x: iteration,
+          y: memory.used,
+        });
+      });
+      // incomingDataFromAPI?.memory?.forEach((memory: any) => {
+      //   iteration++;
+      //   cleanedUpData[0].data.push({
+      //     x: iteration,
+      //     y: memory.used,
+      //   });
+      // });
     }
 
     // Process Memory usage data
     // const totalMemory = incomingDataFromAPI.memory.total;
     //   const usedMemory = incomingDataFromAPI?.memory?.used;
-    //   dataIWant[1].data.push({
+    //   cleanedUpData[1].data.push({
     //     x: iteration,
     //     y: usedMemory,
     //   });
-    // };
 
     // console.log(first);
   };
 
-  processIncomingData(serverData, 1);
-  console.log(cleanedUpData, 'cleanedUpData');
-
-  // useEffect(() => {
-  //   console.log('hey');
-
-  // }, [serverData]);
+  // processIncomingData(serverData, 1);
+  // console.log(cleanedUpData, 'cleanedUpData');
+  // console.log(serverData, 'server');
 
   return (
     <>
       <ResponsiveLine
-        data={data}
+        data={cleanedUpData}
         margin={{ top: 10, right: 35, bottom: 20, left: 40 }}
         xScale={{ type: 'point' }}
         yScale={{

@@ -45,7 +45,7 @@ interface Props {
 const StreamChart = ({ serverData }: Props) => {
   const cpuData = serverData?.cpu;
   const [accumulatedCpuData, setAccumulatedCpuData] = useState([Array<{}>]);
-  const mappedCpuData = cpuData?.map((item) => {
+  const mappedCpuData = cpuData?.map((item: any) => {
     return { cpu: item.usage };
   });
   useEffect(() => {

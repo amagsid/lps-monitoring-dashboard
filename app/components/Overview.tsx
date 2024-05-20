@@ -15,11 +15,9 @@ const Overview = ({ server1, server2, server3, server4, server5 }: Props) => {
 
   return (
     <div className='flex flex-col gap-4 items-center justify-center w-full'>
-      {allServers.map(({ machine, cpu, memory }, i) => {
-        return (
-          <StatCard machine={machine} cpu={cpu} memory={memory} key={i + 1} />
-        );
-      })}
+      {allServers.map(({ machine, cpu, memory }, i) => (
+        <StatCard machine={machine} cpu={cpu} memory={memory} key={i + 1} />
+      ))}
     </div>
   );
 };

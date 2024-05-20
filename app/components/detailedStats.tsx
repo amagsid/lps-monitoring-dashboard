@@ -3,13 +3,14 @@ import StreamChart from './charts/StreamChart';
 import LineChart from './charts/LineChart';
 import Tooltip from '@mui/material/Tooltip';
 import CalendarChart from './charts/CalendarChart';
+import Zoom from '@mui/material/Zoom';
 
 interface Props {
-  serverNumber: any;
+  // serverNumber: any;
   serverData: {};
 }
 
-const DetailedStats = ({ serverNumber, serverData }: Props) => {
+const DetailedStats = ({ serverData }: Props) => {
   return (
     <>
       <div className='h-full'>
@@ -27,7 +28,7 @@ const DetailedStats = ({ serverNumber, serverData }: Props) => {
           {/* left centered component */}
           <div className='col-span-2 bg-yellow-500 rounded-lg h-64'></div>
           {/* <!-- Centered main component --> */}
-          <Tooltip title='CPU Stats'>
+          <Tooltip TransitionComponent={Zoom} title='CPU Stats' placement='top'>
             <div className='col-span-8 h-64 flex items-center justify-center rounded-lg'>
               {/* <div className='w-3/4 h-3/4 flex items-center justify-center'> */}
               <StreamChart serverData={serverData} />
