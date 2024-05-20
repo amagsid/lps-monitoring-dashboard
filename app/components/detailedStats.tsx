@@ -5,12 +5,12 @@ import Tooltip from '@mui/material/Tooltip';
 import CalendarChart from './charts/CalendarChart';
 import Zoom from '@mui/material/Zoom';
 
-interface Props {
-  // serverNumber: any;
-  serverData: {};
-}
+// interface Props {
+//   // serverNumber: any;
+//   serverData: (arg?: any) => void
+// }
 
-const DetailedStats = ({ serverData }: Props) => {
+const DetailedStats = ({ serverData }: any) => {
   return (
     <>
       <div className='h-full'>
@@ -48,7 +48,7 @@ const DetailedStats = ({ serverData }: Props) => {
           {/* <!-- Bottom row --> */}
           <div className='col-span-4 bg-purple-500 h-48 rounded-lg'></div>
           <div className='col-span-8 bg-pink-500 h-48 rounded-lg'>
-            <CalendarChart />
+            {/* <CalendarChart /> */}
           </div>
         </div>
       </div>

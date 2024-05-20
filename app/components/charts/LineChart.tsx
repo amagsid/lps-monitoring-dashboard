@@ -5,64 +5,8 @@ interface Props {
   serverData: any;
 }
 
-const incomingDataFromAPI = {
-  cpu: [
-    { id: 1, usage: 12.5 },
-    { id: 2, usage: 12.5 },
-    { id: 3, usage: 12.5 },
-  ],
-  machine: 'machinName',
-  memory: {
-    total: 10,
-    free: 12,
-    used: 13,
-  },
-  timestamp: '',
-};
-
 const LineChart = ({ serverData }: Props) => {
   const [memoryDataStream, setMemoryDataStream] = useState([Array]);
-
-  let memoryDataStreamm = [];
-
-  const dataIWant = [
-    {
-      id: 'cpu',
-      color: 'hsl(177, 70%, 50%)',
-      data: [
-        {
-          x: 'iteration number representing time',
-          y: 'cpu usuage',
-        },
-        {
-          x: 'iteration number representing time',
-          y: 'cpu usuage',
-        },
-        {
-          x: 'iteration number representing time',
-          y: 'cpu usuage',
-        },
-      ],
-    },
-    {
-      id: 'memory',
-      color: 'hsl(177, 70%, 50%)',
-      data: [
-        {
-          x: 'iteration number representing time',
-          y: 'memory usuage',
-        },
-        {
-          x: 'iteration number representing time',
-          y: 'memory usuage',
-        },
-        {
-          x: 'iteration number representing time',
-          y: 'memory usuage',
-        },
-      ],
-    },
-  ];
 
   let cleanedUpData = [
     {
@@ -70,23 +14,29 @@ const LineChart = ({ serverData }: Props) => {
       color: 'hsl(177, 70%, 50%)',
       data: [{ x: 1, y: 20 }],
     },
-    // {
-    //   id: 'memory',
-    //   color: 'hsl(177, 70%, 50%)',
-    //   data: Array<any>,
-    // },
+    {
+      id: 'memory',
+      color: 'hsl(177, 70%, 50%)',
+      data: [{ x: 1, y: 20 }],
+    },
   ];
 
   useEffect(() => {
     if (serverData) {
-      setMemoryDataStream((prev: any) => [...prev, serverData?.memory?.used]);
+      setMemoryDataStream((prev: any) => [
+        ...prev,
+        serverData?.memory?.usedPercentage,
+      ]);
     }
   }, [serverData]);
 
-  console.log(memoryDataStream, 'memoryDataStream');
+  if (memoryDataStream.length > 4) {
+    memoryDataStream.splice(0, 1);
+  }
 
   // Function to process incoming data and append it to dataIWant
   const processIncomingData = (incomingDataFromAPI: any, iteration: number) => {
+    let incrementValue = 1;
     // Process CPU usage data
     if (incomingDataFromAPI) {
       incomingDataFromAPI?.cpu?.forEach((cpu: any) => {
@@ -96,36 +46,17 @@ const LineChart = ({ serverData }: Props) => {
           y: cpu.usage,
         });
       });
-      incomingDataFromAPI?.forEach((memory: any) => {
-        iteration++;
+      memoryDataStream.forEach((memory: any, index) => {
+        const newNumber = incrementValue++ + 1;
+        // let iteration = 1;
         cleanedUpData[1]?.data.push({
-          x: iteration,
-          y: memory.used,
+          x: newNumber,
+          y: memory,
         });
       });
-      // incomingDataFromAPI?.memory?.forEach((memory: any) => {
-      //   iteration++;
-      //   cleanedUpData[0].data.push({
-      //     x: iteration,
-      //     y: memory.used,
-      //   });
-      // });
     }
-
-    // Process Memory usage data
-    // const totalMemory = incomingDataFromAPI.memory.total;
-    //   const usedMemory = incomingDataFromAPI?.memory?.used;
-    //   cleanedUpData[1].data.push({
-    //     x: iteration,
-    //     y: usedMemory,
-    //   });
-
-    // console.log(first);
   };
-
-  // processIncomingData(serverData, 1);
-  // console.log(cleanedUpData, 'cleanedUpData');
-  // console.log(serverData, 'server');
+  processIncomingData(serverData, 1);
 
   return (
     <>
@@ -143,7 +74,7 @@ const LineChart = ({ serverData }: Props) => {
         yFormat=' >-.2f'
         axisTop={null}
         axisRight={{
-          orient: 'right',
+          // orient: 'right',
           tickSize: 4,
           tickPadding: 3,
           tickRotation: -1,
