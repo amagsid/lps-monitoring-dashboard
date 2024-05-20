@@ -30,11 +30,11 @@ const DetailedStats = ({ serverData }: any) => {
   useEffect(() => {
     if (prevMemoryUsage) {
       if (prevMemoryUsage > CurrentMemoryUsage) {
-        console.log('its going down', prevMemoryUsage, CurrentMemoryUsage);
+        // console.log('its going down', prevMemoryUsage, CurrentMemoryUsage);
         setIsMemoryTrendUp(false);
       }
       if (prevMemoryUsage < CurrentMemoryUsage) {
-        console.log('its going up', prevMemoryUsage, CurrentMemoryUsage);
+        // console.log('its going up', prevMemoryUsage, CurrentMemoryUsage);
         setIsMemoryTrendUp(true);
       }
     }
@@ -45,7 +45,7 @@ const DetailedStats = ({ serverData }: any) => {
       <div className='grid grid-cols-12 gap-2 w-full px-4 max-w-7xl'>
         {/* <!-- Top row --> */}
         <div className='col-span-8 bg-blue-500 h-40  rounded-lg flex items-center justify-center'>
-          <LineChart serverData={serverData} />
+          {/* <LineChart serverData={serverData} /> */}
         </div>
         <div className='col-span-4 bg-green-500 h-40 flex flex-col items-center justify-center  rounded-lg'>
           <h1>Free memory (%)</h1>
@@ -85,7 +85,7 @@ const DetailedStats = ({ serverData }: any) => {
           )}
         </div>
         <div className='col-span-8 bg-pink-500 h-48 rounded-lg'>
-          <CalendarChart />
+          <CalendarChart serverData={serverData} />
         </div>
       </div>
     </div>

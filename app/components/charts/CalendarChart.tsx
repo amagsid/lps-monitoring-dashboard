@@ -1,81 +1,88 @@
 // install (please try to align the version of installed @nivo packages)
 // yarn add @nivo/calendar
 import { ResponsiveCalendar } from '@nivo/calendar';
+import { useEffect, useState } from 'react';
+import { server01AnnualStats } from '../../data/server1AnnualStats';
 
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
-const CalendarChart = () => {
-  const data = [
-    {
-      value: 224,
-      day: '2024-05-20',
-    },
-    {
-      value: 76,
-      day: '2024-03-21',
-    },
-    {
-      value: 113,
-      day: '2024-12-04',
-    },
-    {
-      value: 149,
-      day: '2024-06-30',
-    },
-    {
-      value: 181,
-      day: '2024-06-28',
-    },
-    {
-      value: 351,
-      day: '2024-01-25',
-    },
-    {
-      value: 333,
-      day: '2024-05-11',
-    },
-    {
-      value: 192,
-      day: '2024-08-28',
-    },
-    {
-      value: 221,
-      day: '2024-12-06',
-    },
-    {
-      value: 213,
-      day: '2024-08-13',
-    },
-  ];
+interface Props {
+  serverData: any;
+  // cpu: [];
+}
+
+const CalendarChart = ({ serverData }: Props) => {
+  const [CPUdataStream, setCPUDataStream] = useState(server01AnnualStats);
+  const [filteredDataStream, setFilteredDataStream] = useState<
+    Array<{
+      day: string;
+      value: number;
+    }>
+  >([]);
+  const [isCompare, setIsCompare] = useState(false);
+  const handleIsCompareClick = () => {
+    setIsCompare(!isCompare); // Toggle the state
+    console.log(isCompare);
+  };
+
+  //Calculate the sum of CPU usage
+  const totalUsage = serverData?.cpu?.reduce(
+    (sum: any, cpu: any) => sum + cpu.usage,
+    0
+  );
+
+  const date = new Date(serverData.timestamp);
+  const formattedDate = date.toLocaleDateString().replace(/\//g, '-'); // "YYYY-MM-DD"
+
+  function convertDateFormat(dateStr: string) {
+    // Split the input date string by the hyphen
+    const [day, month, year] = dateStr.split('-');
+    // Rearrange and join the parts to get the desired format
+    const formattedDate = `${year}-${month}-${day}`;
+
+    return formattedDate;
+  }
+  const newData = {
+    value: totalUsage,
+    day: convertDateFormat(formattedDate),
+  };
+
+  useEffect(() => {
+    setCPUDataStream((prevData: any) => [...prevData, newData]);
+    const filteredData = CPUdataStream.filter((value) => {
+      return value.value !== undefined;
+    });
+    setFilteredDataStream(filteredData);
+  }, [serverData]);
+
   return (
-    <ResponsiveCalendar
-      data={data}
-      from='2024-01-01'
-      to='2024-12-12'
-      emptyColor='#eeeeee'
-      colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
-      minValue='auto'
-      margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-      yearLegendOffset={9}
-      monthBorderColor='#ffffff'
-      dayBorderWidth={2}
-      dayBorderColor='#ffffff'
-      legends={[
-        {
-          anchor: 'bottom-right',
-          direction: 'row',
-          translateY: 36,
-          itemCount: 4,
-          itemWidth: 42,
-          itemHeight: 36,
-          itemsSpacing: 14,
-          itemDirection: 'right-to-left',
-        },
-      ]}
-    />
+    <>
+      {' '}
+      <button onClick={handleIsCompareClick}>{isCompare} Toggle Me </button>
+      <ResponsiveCalendar
+        data={filteredDataStream}
+        from={isCompare ? '2024-01-01' : '2023-01-01'}
+        to='2024-05-23'
+        emptyColor='#f5f5f5'
+        colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
+        margin={{ top: 0, right: 10, bottom: 0, left: 30 }}
+        yearSpacing={40}
+        yearLegendOffset={6}
+        monthBorderColor='#ffffff'
+        dayBorderWidth={2}
+        dayBorderColor='#ffffff'
+        legends={[
+          {
+            anchor: 'bottom-right',
+            direction: 'row',
+            translateY: 36,
+            itemCount: 4,
+            itemWidth: 42,
+            itemHeight: 36,
+            itemsSpacing: 14,
+            itemDirection: 'right-to-left',
+          },
+        ]}
+      />
+    </>
   );
 };
 
