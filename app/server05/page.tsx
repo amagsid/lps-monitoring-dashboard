@@ -9,6 +9,10 @@ import DetailedStats from '../components/detailedStats';
 
 const page = () => {
   const [theme, colorMode] = useMode();
+  const { serverData } = useWebSocket(
+    'wss://lps-monitoring.up.railway.app/realtime',
+    metricMessages[1]
+  );
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -16,7 +20,7 @@ const page = () => {
         <CssBaseline />
         <DashboardLayout>
           {' '}
-          <DetailedStats serverNumber={'5'} />
+          <DetailedStats serverData={serverData} serverNumber={'5'} />
         </DashboardLayout>
       </ThemeProvider>
     </ColorModeContext.Provider>

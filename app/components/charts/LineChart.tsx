@@ -46,11 +46,11 @@ const LineChart = ({ serverData }: Props) => {
           y: cpu.usage,
         });
       });
-      memoryDataStream.forEach((memory: any, index) => {
+      memoryDataStream.forEach((memory: any, index: any) => {
         const newNumber = incrementValue++ + 1;
         // let iteration = 1;
         cleanedUpData[1]?.data.push({
-          x: newNumber,
+          x: Number(newNumber),
           y: memory,
         });
       });

@@ -16,8 +16,6 @@ const page = () => {
     metricMessages[0]
   );
 
-  console.log(serverData, 'serverData');
-
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>

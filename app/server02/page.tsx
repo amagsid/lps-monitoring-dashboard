@@ -20,7 +20,7 @@ const page = () => {
         <CssBaseline />
         <DashboardLayout>
           {' '}
-          <DetailedStats serverData={serverData} serverNumber={'1'} />
+          <DetailedStats serverData={serverData} serverNumber={'2'} />
         </DashboardLayout>
       </ThemeProvider>
     </ColorModeContext.Provider>
