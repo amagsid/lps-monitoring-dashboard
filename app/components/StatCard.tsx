@@ -12,6 +12,7 @@ interface Props {
 }
 
 const StatCard = ({ machine, cpu, memory }: Props) => {
+  console.log(memory?.freePercentage > 1000);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -25,7 +26,9 @@ const StatCard = ({ machine, cpu, memory }: Props) => {
             <div className='stat-title'>CPU</div>
 
             {cpu && (
-              <div className='stat-value transition-all '>{cpu[3]?.usage}</div>
+              <div className='stat-value transition-all text-[1.75rem]'>
+                {cpu[3]?.usage}
+              </div>
             )}
 
             <div className='stat-desc'>Jan 1st - Feb 1st</div>
@@ -41,7 +44,15 @@ const StatCard = ({ machine, cpu, memory }: Props) => {
                 <div className='stat-value text-[1.75rem]'>
                   {memory.used}/ <span className='text-lg'>{memory.total}</span>
                 </div>
-                <div className='stat-desc'>↗︎ ({memory.usedPercentage}%)</div>
+                <div
+                  className={`${
+                    memory?.usedPercentage > 50 &&
+                    memory?.usedPercentage < 100 &&
+                    ' text-red-700 transition-all'
+                  } ${true && `stat-desc`}`}
+                >
+                  ({memory.usedPercentage}%)
+                </div>
               </>
             )}
           </div>
@@ -62,8 +73,18 @@ const StatCard = ({ machine, cpu, memory }: Props) => {
             {memory && (
               <>
                 {' '}
-                <div className='stat-value'>{memory.free}</div>{' '}
-                <div className='stat-desc'>↘︎ ({memory.freePercentage}%)</div>{' '}
+                <div className='stat-value text-[1.75rem]'>
+                  {memory.free}
+                </div>{' '}
+                <div
+                  className={`${
+                    memory?.freePercentage > 80 &&
+                    memory?.freePercentage < 100 &&
+                    ' text-sky-500 transition-all'
+                  } ${true && `stat-desc`}`}
+                >
+                  ({memory.freePercentage}%)
+                </div>{' '}
               </>
             )}
           </div>

@@ -3,6 +3,8 @@
 import { ResponsiveCalendar } from '@nivo/calendar';
 import { useEffect, useState } from 'react';
 import { server01AnnualStats } from '../../data/server1AnnualStats';
+import { TbArrowBarBoth } from 'react-icons/tb';
+import Tooltip from '@mui/material/Tooltip';
 
 interface Props {
   serverData: any;
@@ -55,11 +57,20 @@ const CalendarChart = ({ serverData }: Props) => {
 
   return (
     <>
-      {' '}
-      <button onClick={handleIsCompareClick}>{isCompare} Toggle Me </button>
+      <Tooltip className='w-full ' title='hey' placement='top-end'>
+        <div className=' h-fit w-fit z-40 relative'>
+          <TbArrowBarBoth
+            className='z-40'
+            style={{ position: 'absolute', right: 10 }}
+            size={23}
+            onClick={handleIsCompareClick}
+          />
+        </div>
+      </Tooltip>
+
       <ResponsiveCalendar
         data={filteredDataStream}
-        from={isCompare ? '2024-01-01' : '2023-01-01'}
+        from={!isCompare ? '2024-01-01' : '2023-01-01'}
         to='2024-05-23'
         emptyColor='#f5f5f5'
         colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
