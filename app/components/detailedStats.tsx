@@ -50,7 +50,7 @@ const DetailedStats = ({ serverData, annualStats }: any) => {
       <div className='grid grid-cols-12 gap-2 w-full px-4 max-w-7xl'>
         {/* <!-- Top row --> */}
         <div className='col-span-8  bg-opacity-50 bg-cyan-300 h-40  rounded-lg flex items-center justify-center'>
-          {/* <LineChart serverData={serverData} /> */}
+          <LineChart serverData={serverData} />
         </div>
         <div className='col-span-4  bg-opacity-50 bg-green-500 h-40 flex flex-col items-center justify-center  rounded-lg'>
           <h1>Free memory (%)</h1>

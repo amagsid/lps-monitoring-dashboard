@@ -60,6 +60,7 @@ export const tokens = (mode: any) => ({
           900: '#151632',
         },
         colorPop: '#2adcff',
+        navBar: '#162039',
       }
     : {
         grey: {
@@ -118,6 +119,7 @@ export const tokens = (mode: any) => ({
           900: '#e1e2fe',
         },
         colorPop: '#a855f7',
+        navBar: '#cacaca',
       }),
 });
 

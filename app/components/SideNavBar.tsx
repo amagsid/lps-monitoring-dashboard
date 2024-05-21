@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { HiOutlineServer } from 'react-icons/hi2';
 import { useTheme } from '@mui/material';
 import { tokens } from '../../theme';
+import Image from 'next/image';
+import LPSLogo from '../../public/LPS-logo.svg';
 
 const SideNavBar = () => {
   const theme = useTheme();
@@ -21,10 +23,13 @@ const SideNavBar = () => {
   ];
 
   return (
-    <div className='flex flex-col items-center justify-start gap-4 h-full py-9'>
-      <h1>Logo</h1>
+    <div className='flex flex-col items-center justify-start gap-12 h-full py-9 font-semibold'>
+      <Image src={LPSLogo} alt='logo' />
+
       <nav className='flex flex-col gap-4'>
-        <Link href='/'>Overview</Link>
+        <Link href='/' className='tracking-widest'>
+          overview
+        </Link>
         {Links.map(({ to, serverNumber, id }) => {
           return (
             <Link

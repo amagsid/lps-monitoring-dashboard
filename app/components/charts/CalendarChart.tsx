@@ -4,6 +4,8 @@ import { ResponsiveCalendar } from '@nivo/calendar';
 import { useEffect, useState } from 'react';
 import { server01AnnualStats } from '../../data/serverAnnualStats';
 import { TbArrowBarBoth } from 'react-icons/tb';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import UndoIcon from '@mui/icons-material/Undo';
 import Tooltip from '@mui/material/Tooltip';
 import { ColorModeContext, useMode } from '../../../theme';
 import { useTheme } from '@mui/material';
@@ -53,22 +55,46 @@ const CalendarChart = ({ serverData, annualStats }: Props) => {
 
   useEffect(() => {
     setCPUDataStream((prevData: any) => [...prevData, newData]);
-    const filteredData = CPUdataStream.filter((value) => {
+    const filteredData = CPUdataStream.filter((value: any) => {
       return value.value !== undefined;
     });
     setFilteredDataStream(filteredData);
   }, [serverData]);
 
+  const toolTipTheme = {
+    tooltip: {
+      container: {
+        color: '#ffffff',
+        background: '#333333',
+        fontSize: '14px',
+        borderRadius: '4px',
+        boxShadow: '0 3px 9px rgba(0, 0, 0, 0.5)',
+      },
+    },
+  };
+
   return (
     <>
-      <Tooltip className='w-full ' title='hey' placement='top-end'>
+      <Tooltip
+        // style={{ scale: 2 }}
+        className='w-full '
+        title={!isCompare ? 'compare to last year' : 'back to 2024 view'}
+        placement='top-end'
+      >
         <div className=' h-fit w-fit z-40 relative'>
-          <TbArrowBarBoth
-            className='z-40'
-            style={{ position: 'absolute', right: 10 }}
-            size={23}
-            onClick={handleIsCompareClick}
-          />
+          {!isCompare ? (
+            <CompareArrowsIcon
+              className='z-40'
+              style={{ position: 'absolute', right: 10 }}
+              onClick={handleIsCompareClick}
+            />
+          ) : (
+            <UndoIcon
+              className='z-40'
+              style={{ position: 'absolute', right: 10 }}
+              onClick={handleIsCompareClick}
+            />
+          )}
         </div>
       </Tooltip>
 
@@ -76,6 +102,7 @@ const CalendarChart = ({ serverData, annualStats }: Props) => {
         data={filteredDataStream}
         from={!isCompare ? '2024-01-01' : '2023-01-01'}
         to='2024-05-23'
+        theme={toolTipTheme}
         emptyColor='#f2f2f2'
         colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
         margin={{ top: 15, right: 10, bottom: 10, left: 20 }}

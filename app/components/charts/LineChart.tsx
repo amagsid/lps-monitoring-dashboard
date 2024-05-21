@@ -37,7 +37,8 @@ const LineChart = ({ serverData }: Props) => {
   // Function to process incoming data and append it to dataIWant
   const processIncomingData = (incomingDataFromAPI: any, iteration: number) => {
     let incrementValue = 1;
-    // Process CPU usage data
+
+    console.log(memoryDataStream, 'memoryDataStream');
     if (incomingDataFromAPI) {
       incomingDataFromAPI?.cpu?.forEach((cpu: any) => {
         iteration++;
@@ -45,18 +46,35 @@ const LineChart = ({ serverData }: Props) => {
           x: iteration,
           y: cpu.usage,
         });
-      });
-      memoryDataStream.forEach((memory: any, index: any) => {
-        const newNumber = incrementValue++ + 1;
-        // let iteration = 1;
-        cleanedUpData[1]?.data.push({
-          x: Number(newNumber),
-          y: memory,
-        });
+        // cleanedUpData[1]?.data.push({
+        //   x: iteration,
+        //   y: memory,
+        // });
       });
     }
+
+    memoryDataStream.forEach((memory: any, index: any) => {
+      const newNumber = incrementValue++;
+      // iteration++;
+      cleanedUpData[1]?.data.push({
+        x: (index = +incrementValue),
+        y: memory,
+      });
+    });
   };
   processIncomingData(serverData, 1);
+
+  const toolTipTheme = {
+    tooltip: {
+      container: {
+        color: '#ffffff', // Set the tooltip text color here
+        background: '#333333', // Optionally, you can also set the background color
+        fontSize: '14px', // Optionally, set the font size
+        borderRadius: '4px', // Optionally, set the border radius
+        boxShadow: '0 3px 9px rgba(0, 0, 0, 0.5)', // Optionally, set the box shadow
+      },
+    },
+  };
 
   return (
     <>
@@ -71,6 +89,7 @@ const LineChart = ({ serverData }: Props) => {
           stacked: true,
           reverse: false,
         }}
+        theme={toolTipTheme}
         yFormat=' >-.2f'
         axisTop={null}
         axisRight={{

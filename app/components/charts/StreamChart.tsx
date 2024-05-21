@@ -1,45 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ResponsiveStream } from '@nivo/stream';
 
-const incomingdata = {
-  cpu: [
-    { id: 1, usage: 12.5 },
-    { id: 2, usage: 12.5 },
-    { id: 3, usage: 12.5 },
-  ],
-  machine: 'name',
-  memory: {
-    total: 10,
-    free: 12,
-    used: 13,
-  },
-  timestamp: '',
-};
-
-const data = [
-  {
-    cpu: 155,
-  },
-  {
-    cpu: 140,
-  },
-  {
-    cpu: 100,
-  },
-  {
-    cpu: 90,
-  },
-  {
-    cpu: 120,
-  },
-  {
-    cpu: 90,
-  },
-];
-
 interface Props {
   serverData: any;
-  // cpu: [];
+  cpu: [];
 }
 
 const StreamChart = ({ serverData }: Props) => {
@@ -53,21 +17,19 @@ const StreamChart = ({ serverData }: Props) => {
     if (mappedCpuData) {
       setAccumulatedCpuData((prev) => [...prev, ...mappedCpuData]);
     }
-    // console.log(accumulatedCpuData.slice(1), 'accumulatedCpuData');
-    // console.log(mappedCpuData, 'mapped');
   }, [cpuData]);
 
   if (accumulatedCpuData.length > 90) {
     accumulatedCpuData.splice(0, 10);
   }
-  const theme = {
+  const toolTipTheme = {
     tooltip: {
       container: {
-        color: '#ffffff', // Set the tooltip text color here
-        background: '#333333', // Optionally, you can also set the background color
-        fontSize: '14px', // Optionally, set the font size
-        borderRadius: '4px', // Optionally, set the border radius
-        boxShadow: '0 3px 9px rgba(0, 0, 0, 0.5)', // Optionally, set the box shadow
+        color: '#ffffff',
+        background: '#333333',
+        fontSize: '14px',
+        borderRadius: '4px',
+        boxShadow: '0 3px 9px rgba(0, 0, 0, 0.5)',
       },
     },
   };
@@ -82,9 +44,9 @@ const StreamChart = ({ serverData }: Props) => {
           axisTop={null}
           axisRight={null}
           axisBottom={null}
-          theme={theme} // Apply the custom theme here
+          theme={toolTipTheme} //custom styling
           axisLeft={{
-            orient: 'left',
+            // orient: 'left',
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
