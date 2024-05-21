@@ -19,6 +19,9 @@ const TopBar = ({ loading, isPaused }: Props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+
+
+
   return (
     <div className='flex flex-row w-full items-center justify-between p-4 px-12'>
       <div

@@ -38,8 +38,6 @@ const Dashboard = () => {
     metricMessages[4]
   );
 
-  // console.log(serverData);
-
   return (
     <div className=' flex flex-row h-screen w-screen '>
       <aside className=' w-72'>

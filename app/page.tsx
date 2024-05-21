@@ -11,10 +11,6 @@ import { metricMessages } from './data/websocketConnection/metricMessages';
 
 export default function Home() {
   const [theme, colorMode] = useMode();
-  const { serverData, isPaused, loading, setPause } = useWebSocket(
-    'wss://lps-monitoring.up.railway.app/realtime',
-    metricMessages
-  );
   const { serverData: server1 } = useWebSocket(
     'wss://lps-monitoring.up.railway.app/realtime',
     metricMessages[0]

@@ -10,7 +10,7 @@ import { FaArrowTrendDown } from 'react-icons/fa6';
 import { useTheme } from '@mui/material';
 import { tokens } from '../../theme';
 
-const DetailedStats = ({ serverData }: any) => {
+const DetailedStats = ({ serverData, annualStats }: any) => {
   //converting timestamp yo human-readable date/time
   const date = new Date(serverData.timestamp);
   const formattedDate = date.toLocaleDateString();
@@ -99,7 +99,7 @@ const DetailedStats = ({ serverData }: any) => {
           style={{ borderColor: colors.colorPop }}
           className={` bg-opacity-50 col-span-8 bg-cyan-300 h-48 rounded-lg`}
         >
-          <CalendarChart serverData={serverData} />
+          <CalendarChart serverData={serverData} annualStats={annualStats} />
         </div>
       </div>
     </div>

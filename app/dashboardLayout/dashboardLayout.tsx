@@ -27,7 +27,7 @@ const DashboardLayout = ({ children }: Props) => {
 
   return (
     <div className=' flex flex-row h-screen w-screen '>
-      <aside className=' w-72'>
+      <aside className='w-48'>
         {' '}
         <NavBar />
       </aside>

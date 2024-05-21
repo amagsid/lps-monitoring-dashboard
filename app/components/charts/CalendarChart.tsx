@@ -2,17 +2,21 @@
 // yarn add @nivo/calendar
 import { ResponsiveCalendar } from '@nivo/calendar';
 import { useEffect, useState } from 'react';
-import { server01AnnualStats } from '../../data/server1AnnualStats';
+import { server01AnnualStats } from '../../data/serverAnnualStats';
 import { TbArrowBarBoth } from 'react-icons/tb';
 import Tooltip from '@mui/material/Tooltip';
+import { ColorModeContext, useMode } from '../../../theme';
+import { useTheme } from '@mui/material';
 
 interface Props {
   serverData: any;
+  annualStats: any;
   // cpu: [];
 }
 
-const CalendarChart = ({ serverData }: Props) => {
-  const [CPUdataStream, setCPUDataStream] = useState(server01AnnualStats);
+const CalendarChart = ({ serverData, annualStats }: Props) => {
+  const theme = useTheme();
+  const [CPUdataStream, setCPUDataStream] = useState(annualStats);
   const [filteredDataStream, setFilteredDataStream] = useState<
     Array<{
       day: string;
@@ -72,14 +76,25 @@ const CalendarChart = ({ serverData }: Props) => {
         data={filteredDataStream}
         from={!isCompare ? '2024-01-01' : '2023-01-01'}
         to='2024-05-23'
-        emptyColor='#f5f5f5'
+        emptyColor='#f2f2f2'
         colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
-        margin={{ top: 0, right: 10, bottom: 0, left: 30 }}
-        yearSpacing={40}
-        yearLegendOffset={6}
-        monthBorderColor='#ffffff'
+        margin={{ top: 15, right: 10, bottom: 10, left: 20 }}
+        yearSpacing={15}
+        yearLegendOffset={5}
+        monthBorderColor={
+          theme.palette.mode == 'dark'
+            ? `#3d8294`
+            : `#b6f3fc
+        `
+        }
+        monthLegendOffset={4}
         dayBorderWidth={2}
-        dayBorderColor='#ffffff'
+        dayBorderColor={
+          theme.palette.mode == 'dark'
+            ? `#3d8294`
+            : `#b6f3fc
+        `
+        }
         legends={[
           {
             anchor: 'bottom-right',

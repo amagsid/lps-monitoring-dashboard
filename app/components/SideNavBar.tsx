@@ -21,20 +21,23 @@ const SideNavBar = () => {
   ];
 
   return (
-    <div className='flex flex-col items-center justify-center gap-4'>
-      <Link href='/'>Overview</Link>
-      {Links.map(({ to, serverNumber, id }) => {
-        return (
-          <Link
-            key={id}
-            href={to}
-            className='flex flex-row items-center justify-center gap-2'
-          >
-            <HiOutlineServer style={{ color: colors.colorPop }} />
-            {serverNumber}
-          </Link>
-        );
-      })}
+    <div className='flex flex-col items-center justify-start gap-4 h-full py-9'>
+      <h1>Logo</h1>
+      <nav className='flex flex-col gap-4'>
+        <Link href='/'>Overview</Link>
+        {Links.map(({ to, serverNumber, id }) => {
+          return (
+            <Link
+              key={id}
+              href={to}
+              className='flex flex-row items-center justify-center gap-2'
+            >
+              <HiOutlineServer style={{ color: colors.colorPop }} />
+              {serverNumber}
+            </Link>
+          );
+        })}
+      </nav>
     </div>
   );
 };

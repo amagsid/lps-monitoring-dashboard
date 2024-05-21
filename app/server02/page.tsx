@@ -6,6 +6,7 @@ import { metricMessages } from '../data/websocketConnection/metricMessages';
 import { ColorModeContext, useMode } from '../../theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import DetailedStats from '../components/detailedStats';
+import { server02AnnualStats } from '../data/serverAnnualStats';
 
 const page = () => {
   const [theme, colorMode] = useMode();
@@ -20,7 +21,11 @@ const page = () => {
         <CssBaseline />
         <DashboardLayout>
           {' '}
-          <DetailedStats serverData={serverData} serverNumber={'2'} />
+          <DetailedStats
+            serverData={serverData}
+            serverNumber={'2'}
+            annualStats={server02AnnualStats}
+          />
         </DashboardLayout>
       </ThemeProvider>
     </ColorModeContext.Provider>
