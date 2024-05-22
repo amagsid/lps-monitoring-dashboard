@@ -43,7 +43,7 @@ const DashboardLayout = ({ children }: Props) => {
           />
         </div>
 
-        <div className='h-screen'>
+        <div className='h-screen flex items-center justify-center'>
           {!loading ? (
             children
           ) : (

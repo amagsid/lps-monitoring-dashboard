@@ -11,41 +11,10 @@ const SideNavBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [isServer1Selected, setIsServer1Selected] = useState(false);
-  // const [selectedServer, setSelectedServer] = useState(false);
-  // const [selectedServer, setSelectedServer] = useState(false);
-
   const handleSelected = (id: any) => {
     let el = document.getElementById(id);
-    // setIsServer1Selected(true);
-    console.log(el);
-
-    const selectedStateClasses = [
-      'outline-1',
-      'outline-yellow-100',
-      'outline',
-      'bg-zinc-800',
-      'bg-opacity-70',
-      'scale-95',
-    ];
-    // el!.classList.add('textttttttttt');
-    // if (!el!.classList.contains('text-red-600')) {
-    // el!.classList.add('text-red-600');
-    // }
-    // if (!el!.classList.contains('outline-1')) {
-    el!.classList.add(...selectedStateClasses);
-    // } else {
-    //   el!.classList.remove(...selectedStateClasses);
-    // }
+    //feature to implement next
   };
-
-  // useEffect(() => {
-  //   const link = document.querySelectorAll('.navlink');
-
-  //   // console.log(selectedServer);
-
-  //   link?.addEventListener('click', handleSelected);
-  // }, [setSelectedServer]);
 
   const Links = [
     { to: 'server01', serverNumber: '01', id: 1 },
@@ -64,15 +33,12 @@ const SideNavBar = () => {
           overview
         </Link>
         {Links.map((link) => {
-          // console.log(link);
           return (
             <Link
               id={`${link.id}`}
-              onClick={() => handleSelected(link.id)}
               key={link.id}
               href={link.to}
               className='navlink flex flex-row items-center justify-center gap-2'
-              style={{ color: isServer1Selected ? 'red' : 'white' }}
             >
               <HiOutlineServer style={{ color: colors.colorPop }} />
               {link.serverNumber}
