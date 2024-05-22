@@ -9,18 +9,19 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import SearchIcon from '@mui/icons-material/Search';
+import { MdErrorOutline } from 'react-icons/md';
 
 interface Props {
   loading: Boolean;
   isPaused: Boolean;
+  isError: Boolean;
+  error: string;
 }
 
-const TopBar = ({ loading, isPaused }: Props) => {
+const TopBar = ({ loading, isPaused, error, isError }: Props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-
-
 
   return (
     <div className='flex flex-row w-full items-center justify-between p-4 px-12'>
@@ -42,14 +43,20 @@ const TopBar = ({ loading, isPaused }: Props) => {
       {/* {isPaused && <h1> paused</h1>} */}
 
       <div className='flex flex-row items-center justify-center'>
-        <h4>status:</h4>
+        <h4 className='p-2'>status:</h4>
         <span>
-          {loading && (
+          {!isError && loading && (
             <l-tail-chase
               size='20'
               speed='1.75'
               color={colors.colorPop}
             ></l-tail-chase>
+          )}
+          {isError && (
+            <div className='flex flex-row items-center justify-center gap-1'>
+              <MdErrorOutline color={'red'} />
+              <h1 className=' text-sm'>check connection and try again</h1>
+            </div>
           )}
           {!isPaused && !loading && (
             <div className='flex items-center align-center'>

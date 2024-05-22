@@ -20,10 +20,11 @@ interface Props {
 const DashboardLayout = ({ children }: Props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { serverData, isPaused, loading, setPause } = useWebSocket(
-    'wss://lps-monitoring.up.railway.app/realtime',
-    metricMessages
-  );
+  const { serverData, isPaused, loading, setPause, error, isError } =
+    useWebSocket(
+      'wss://lps-monitoring.up.railway.app/realtime',
+      metricMessages
+    );
 
   return (
     <div className=' flex flex-row h-screen w-screen '>
@@ -34,7 +35,12 @@ const DashboardLayout = ({ children }: Props) => {
 
       <div className='flex flex-col w-full'>
         <div className=' flex flex-row items-center justify-center'>
-          <TopBar loading={loading} isPaused={isPaused} />
+          <TopBar
+            loading={loading}
+            isPaused={isPaused}
+            error={error}
+            isError={isError}
+          />
         </div>
 
         <div className='h-screen'>

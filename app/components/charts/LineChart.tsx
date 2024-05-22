@@ -37,8 +37,6 @@ const LineChart = ({ serverData }: Props) => {
   // Function to process incoming data and append it to dataIWant
   const processIncomingData = (incomingDataFromAPI: any, iteration: number) => {
     let incrementValue = 1;
-
-    console.log(memoryDataStream, 'memoryDataStream');
     if (incomingDataFromAPI) {
       incomingDataFromAPI?.cpu?.forEach((cpu: any) => {
         iteration++;

@@ -6,6 +6,8 @@ const useWebSocket = (url: string, metricMessage: any) => {
   const [loading, setLoading] = useState(true);
   const [serverData, setServerData] = useState([Array<{}>]);
   const [isPaused, setPause] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const socket = new WebSocket(url);
@@ -13,7 +15,6 @@ const useWebSocket = (url: string, metricMessage: any) => {
     if (!isPaused) {
       socket.onopen = () => {
         setLoading(false);
-        // console.log('ws opened on browser');
         if (Array.isArray(metricMessage)) {
           metricMessage.forEach((message: any) => {
             socket.send(JSON.stringify(message));
@@ -34,6 +35,30 @@ const useWebSocket = (url: string, metricMessage: any) => {
         }
       }
     };
+
+    socket.onclose = (event) => {
+      if (event.code != 1000) {
+        // Error code 1000 means that the connection was closed normally.
+        if (!navigator.onLine) {
+          alert(
+            'You are offline. Please connect to the Internet and try again.'
+          );
+        }
+      }
+    };
+
+    // socket.onerror = (error: any) => {
+    //   console.error('WebSocket error: ', socket);
+    //   setIsError(true);
+    //   setError(error);
+    // };
+
+    socket.addEventListener('error', (error) => {
+      console.error('addEventListener event handler!', error);
+      setIsError(true);
+
+      socket.close();
+    });
     // Clean up the WebSocket connection when the component unmounts
     return () => {
       if (socket.readyState === 1) {
@@ -43,7 +68,7 @@ const useWebSocket = (url: string, metricMessage: any) => {
     };
   }, []);
 
-  return { serverData, isPaused, loading, setPause };
+  return { serverData, isPaused, loading, setPause, isError, error };
 };
 
 export default useWebSocket;

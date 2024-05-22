@@ -19,8 +19,8 @@ const StreamChart = ({ serverData }: Props) => {
     }
   }, [cpuData]);
 
-  if (accumulatedCpuData.length > 90) {
-    accumulatedCpuData.splice(0, 10);
+  if (accumulatedCpuData.length >= 30) {
+    accumulatedCpuData.splice(0, 8);
   }
   const toolTipTheme = {
     tooltip: {
@@ -98,7 +98,7 @@ const StreamChart = ({ serverData }: Props) => {
           dotBorderWidth={2}
           dotBorderColor={{
             from: 'color',
-            modifiers: [['darker', '2']],
+            modifiers: [['darker', 2]],
           }}
           legends={[
             {

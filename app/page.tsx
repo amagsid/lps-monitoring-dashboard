@@ -1,6 +1,4 @@
 'use client';
-import Image from 'next/image';
-import Dashboard from './pages/Dashboard';
 import { BrowserRouter } from 'react-router-dom';
 import { ColorModeContext, useMode } from '../theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
