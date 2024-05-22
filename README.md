@@ -37,7 +37,7 @@ bun dev
 
 1. Increased Complexity in data handling and sepertion: I found it woiuod take more time to seperate data especially that its a big stream of continious real time data in
 
-Option 2, Option 2: Multiple WebSocket Connections:
+Option 2: Multiple WebSocket Connections:
 
 Advantages:
 
